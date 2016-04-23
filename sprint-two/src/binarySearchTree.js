@@ -12,13 +12,17 @@ BinarySearchTree.prototype.insert = function(value) {
   
 };
 
-BinarySearchTree.prototype.contains = function(value, currNode) {
-  var currNode = currNode || this.root;
+BinarySearchTree.prototype.contains = function(value, aNode) {
+  var currNode = aNode || this.root;
   if (currNode.value === value) {
     return true;
-  } else if ( value < this.root.value ) {
-    currNode.children.left.value === value;
+  } 
+  if (!currNode.children.left && !currNode.children.right) {
+    return false;
   }
+  //if the current node's value is less than the value being passed in
+
+  //check the node's left child's value
 };
 
 BinarySearchTree.prototype.depthFirstLog = function() {};
