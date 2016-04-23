@@ -29,11 +29,14 @@ Graph.prototype.removeNode = function(node) {
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
   var flag = false;
-  if (this[toNode].link === undefined || this[fromNode].link === undefined) {
+  
+  if (!this[toNode].link || !this[fromNode].link) {
     return flag;
   }
+  
   var fromTo = this[fromNode].link[toNode] === this[toNode].value;
   var toFrom = this[toNode].link[fromNode] === this[fromNode].value;
+  
   //check the linkage between fromNode and toNode
   if (fromTo && toFrom) {
     flag = true;
@@ -46,6 +49,7 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 Graph.prototype.addEdge = function(fromNode, toNode) {
   this[fromNode].link = this[fromNode].link || {};
   this[fromNode].link[toNode] = toNode;
+
   this[toNode].link = this[toNode].link || {};
   this[toNode].link[fromNode] = fromNode;
 };
