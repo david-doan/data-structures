@@ -8,8 +8,27 @@ var BinarySearchTree = function(value) {
   return obj;
 };
 
-BinarySearchTree.prototype.insert = function(value) {
-  
+BinarySearchTree.prototype.insert = function(value, node) {
+  var currNode = node || this.root;
+  //if the value doesn't already exist in tree
+  if (!this.contains(value)) {
+    //check to see if value is greater than or less than current node
+    if (currNode.value < value) {
+      //if the left child of the current node doesn't exist, add the value to the node
+      if (!currNode.children.left) {
+        currNode.children.left.value = value;
+      } else {
+        //check again
+        this.insert(value, currNode.children.left);
+      }
+    } else {
+      if (!currNode.children.right) {
+        currNode.children.right.value = value;
+      } else {
+        this.insert(value, currNode.children.right);
+      }
+    }
+  }
 };
 
 BinarySearchTree.prototype.contains = function(value, aNode) {
@@ -21,8 +40,12 @@ BinarySearchTree.prototype.contains = function(value, aNode) {
     return false;
   }
   //if the current node's value is less than the value being passed in
-
-  //check the node's left child's value
+  if (currNode.value < value) {
+    //check the node's left child's value
+    return this.contains(value, currNode.children.left);
+  } else {
+    return this.contains(value, currNode.children.right);
+  }
 };
 
 BinarySearchTree.prototype.depthFirstLog = function() {};
